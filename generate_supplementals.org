@@ -1,0 +1,13 @@
+# -*- org-confirm-babel-evaluate: nil -*-
+#+TITLE: generate_supplementals
+#+EXPORT_FILE_NAME: tmp
+
+* File Information                                                 :noexport:
+  This file generates modular device supporting documentation.
+
+* File Usage                                                       :noexport:
+  1.
+
+* Hardware
+  #+BEGIN_SRC sh :exports results :results output silent
+  #+END_SRC
