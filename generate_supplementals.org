@@ -9,5 +9,13 @@
   1.
 
 * Hardware
-  #+BEGIN_SRC sh :exports results :results output silent
+  #+BEGIN_SRC sh :exports results :results silent
+    for HARDWARE_PATH in ../hardware/*; do
+      if [ -d $HARDWARE_PATH ]; then
+        HARDWARE_NAME=${HARDWARE_PATH##*/};
+        README_PATH="$HARDWARE_PATH/README.org";
+        NEW_README_PATH="../README-$HARDWARE_NAME.org";
+        sed "s/\.\//.\/hardware\/$HARDWARE_NAME\//g" $README_PATH > $NEW_README_PATH;
+      fi
+    done
   #+END_SRC
