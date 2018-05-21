@@ -6,8 +6,20 @@
   This file generates modular device supporting documentation.
 
 * File Usage                                                       :noexport:
-  1.
+  1. Export this file to any format to expand the macros and evaluate the source
+     blocks.
 
+* Firmware
+  #+BEGIN_SRC sh :exports results :results silent
+    for FIRMWARE_PATH in ../firmware/*; do
+      if [ -d $FIRMWARE_PATH ]; then
+        FIRMWARE_NAME=${FIRMWARE_PATH##*/};
+        README_PATH="$FIRMWARE_PATH/README.org";
+        NEW_README_PATH="../README-$FIRMWARE_NAME.org";
+        sed "s/\.\//.\/firmware\/$FIRMWARE_NAME\//g" $README_PATH > $NEW_README_PATH;
+      fi
+    done
+  #+END_SRC
 * Hardware
   #+BEGIN_SRC sh :exports results :results silent
     for HARDWARE_PATH in ../hardware/*; do

@@ -51,16 +51,27 @@
     done
   #+END_SRC
 
+* Firmware
+
+  #+BEGIN_SRC sh :exports results :results raw
+    for FIRMWARE_PATH in ../firmware/*; do
+      if [ -d $FIRMWARE_PATH ]; then
+        FIRMWARE_NAME=${FIRMWARE_PATH##*/};
+        echo "** $FIRMWARE_NAME\n";
+        README_PATH="./README-$FIRMWARE_NAME.org";
+        echo "#+INCLUDE: \"$README_PATH\"\n";
+      fi
+    done
+  #+END_SRC
 * Hardware
 
   #+BEGIN_SRC sh :exports results :results raw
     for HARDWARE_PATH in ../hardware/*; do
       if [ -d $HARDWARE_PATH ]; then
         HARDWARE_NAME=${HARDWARE_PATH##*/};
-        echo "** $HARDWARE_NAME";
+        echo "** $HARDWARE_NAME\n";
         README_PATH="./README-$HARDWARE_NAME.org";
-    echo "#+INCLUDE: \"$README_PATH\"";
-
+        echo "#+INCLUDE: \"$README_PATH\"\n";
       fi
     done
   #+END_SRC
