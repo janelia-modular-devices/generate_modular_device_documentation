@@ -1,0 +1,31 @@
+#+TITLE: generate_modular_device_documentation
+#+AUTHOR: Peter Polidoro
+#+EMAIL: peterpolidoro@gmail.com
+
+* Repository Information
+  - Author :: Peter Polidoro
+  - License :: BSD
+
+  The files in this repository generate the documentation for modular device
+  projects.
+
+* Setup Modular Device Project for Documentation Generation
+  1. Add this repository as a submodule in the modular device project
+     repository:
+     #+BEGIN_SRC sh
+       git submodule add https://github.com/janelia-modular-devices/generate_modular_device_documentation.git
+     #+END_SRC
+  2. Copy project.org from this repository submodule into the main modular
+     device project repository directory:
+     #+BEGIN_SRC sh
+       cp ./generate_modular_device_documentation/project.org ./
+     #+END_SRC
+  3. Modify the copied version of project.org in the modular device project
+     repository directory to contain the specific project details.
+
+* Generate Supplementals
+  Follow instrustions in generate_supplementals.org
+
+* Export BOM and README
+  1. Follow instructions in export_bom.org
+  2. Follow instructions in export_readme.org
