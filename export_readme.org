@@ -52,5 +52,3 @@
   #+END_SRC
 
 * Hardware
-
-  #+INCLUDE: "../bom/supplemental_bom.org::supplemental-parts"
