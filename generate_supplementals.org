@@ -15,7 +15,7 @@
       if [ -d $FIRMWARE_PATH ]; then
         FIRMWARE_NAME=${FIRMWARE_PATH##*/};
         README_PATH="$FIRMWARE_PATH/README.org";
-        NEW_README_PATH="../README-$FIRMWARE_NAME.org";
+        NEW_README_PATH="../tmp-README-$FIRMWARE_NAME.org";
         sed "s/\.\//.\/firmware\/$FIRMWARE_NAME\//g" $README_PATH > $NEW_README_PATH;
       fi
     done
@@ -26,8 +26,51 @@
       if [ -d $HARDWARE_PATH ]; then
         HARDWARE_NAME=${HARDWARE_PATH##*/};
         README_PATH="$HARDWARE_PATH/README.org";
-        NEW_README_PATH="../README-$HARDWARE_NAME.org";
+        NEW_README_PATH="../tmp-README-$HARDWARE_NAME.org";
         sed "s/\.\//.\/hardware\/$HARDWARE_NAME\//g" $README_PATH > $NEW_README_PATH;
       fi
     done
   #+END_SRC
+* COMMENT Images
+  #+BEGIN_SRC sh :exports results :results silent
+    for HARDWARE_PATH in ../hardware/*; do
+      if [ -d $HARDWARE_PATH ]; then
+        HARDWARE_NAME=${HARDWARE_PATH##*/};
+        OUTPUT_PATH_BASE="../images/$HARDWARE_NAME";
+        rm -rf $OUTPUT_PATH_BASE;
+        mkdir -p $OUTPUT_PATH_BASE;
+        OUTPUT_PATH_IMAGES="$OUTPUT_PATH_BASE/images";
+        mkdir $OUTPUT_PATH_IMAGES;
+        INPUT_PATH_IMAGES="$HARDWARE_PATH/images";
+        for INPUT_PATH_IMAGE in $INPUT_PATH_IMAGES/*.png; do
+          if [ -f $INPUT_PATH_IMAGE ]; then
+            IMAGE_NAME=${INPUT_PATH_IMAGE##*/};
+            OUTPUT_PATH_IMAGE="$OUTPUT_PATH_IMAGES/$IMAGE_NAME";
+            cp $INPUT_PATH_IMAGE $OUTPUT_PATH_IMAGE;
+          fi
+        done
+        OUTPUT_PATH_SCHEMATIC_IMAGES="$OUTPUT_PATH_BASE/schematic/images";
+        mkdir -p $OUTPUT_PATH_SCHEMATIC_IMAGES;
+        INPUT_PATH_SCHEMATIC_IMAGES="$HARDWARE_PATH/schematic/images";
+        for INPUT_PATH_SCHEMATIC_IMAGE in $INPUT_PATH_SCHEMATIC_IMAGES/*.png; do
+          if [ -f $INPUT_PATH_SCHEMATIC_IMAGE ]; then
+            IMAGE_NAME=${INPUT_PATH_SCHEMATIC_IMAGE##*/};
+            OUTPUT_PATH_SCHEMATIC_IMAGE="$OUTPUT_PATH_SCHEMATIC_IMAGES/$IMAGE_NAME";
+            cp $INPUT_PATH_SCHEMATIC_IMAGE $OUTPUT_PATH_SCHEMATIC_IMAGE;
+          fi
+        done
+        OUTPUT_PATH_GERBERS_IMAGES="$OUTPUT_PATH_BASE/gerbers/images";
+        mkdir -p $OUTPUT_PATH_GERBERS_IMAGES;
+        INPUT_PATH_GERBERS_IMAGES="$HARDWARE_PATH/gerbers/images";
+        for INPUT_PATH_GERBERS_IMAGE in $INPUT_PATH_GERBERS_IMAGES/*.png; do
+          if [ -f $INPUT_PATH_GERBERS_IMAGE ]; then
+            IMAGE_NAME=${INPUT_PATH_GERBERS_IMAGE##*/};
+            OUTPUT_PATH_GERBERS_IMAGE="$OUTPUT_PATH_GERBERS_IMAGES/$IMAGE_NAME";
+            cp $INPUT_PATH_GERBERS_IMAGE $OUTPUT_PATH_GERBERS_IMAGE;
+          fi
+        done
+      fi
+    done
+  #+END_SRC
+
+  #+RESULTS:
