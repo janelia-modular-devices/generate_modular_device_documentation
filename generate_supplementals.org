@@ -9,29 +9,7 @@
   1. Export this file to any format to expand the macros and evaluate the source
      blocks.
 
-* Firmware
-  #+BEGIN_SRC sh :exports results :results silent
-    for FIRMWARE_PATH in ../firmware/*; do
-      if [ -d $FIRMWARE_PATH ]; then
-        FIRMWARE_NAME=${FIRMWARE_PATH##*/};
-        README_PATH="$FIRMWARE_PATH/README.org";
-        NEW_README_PATH="../tmp-README-$FIRMWARE_NAME.org";
-        sed "s/\.\//.\/firmware\/$FIRMWARE_NAME\//g" $README_PATH > $NEW_README_PATH;
-      fi
-    done
-  #+END_SRC
-* Hardware
-  #+BEGIN_SRC sh :exports results :results silent
-    for HARDWARE_PATH in ../hardware/*; do
-      if [ -d $HARDWARE_PATH ]; then
-        HARDWARE_NAME=${HARDWARE_PATH##*/};
-        README_PATH="$HARDWARE_PATH/README.org";
-        NEW_README_PATH="../tmp-README-$HARDWARE_NAME.org";
-        sed "s/\.\//.\/hardware\/$HARDWARE_NAME\//g" $README_PATH > $NEW_README_PATH;
-      fi
-    done
-  #+END_SRC
-* COMMENT Images
+* Images
   #+BEGIN_SRC sh :exports results :results silent
     for HARDWARE_PATH in ../hardware/*; do
       if [ -d $HARDWARE_PATH ]; then
@@ -74,3 +52,28 @@
   #+END_SRC
 
   #+RESULTS:
+* Hardware
+  #+BEGIN_SRC sh :exports results :results silent
+    for HARDWARE_PATH in ../hardware/*; do
+      if [ -d $HARDWARE_PATH ]; then
+        HARDWARE_NAME=${HARDWARE_PATH##*/};
+        README_PATH="$HARDWARE_PATH/README.org";
+        NEW_README_PATH="../tmp-README-$HARDWARE_NAME.org";
+        sed -e "s/\.\//.\/hardware\/$HARDWARE_NAME\//g" $README_PATH > $NEW_README_PATH;
+        sed -i -e "s/\.\/hardware\/$HARDWARE_NAME\/images/.\/images\/$HARDWARE_NAME\/images/g" $NEW_README_PATH
+        sed -i -e "s/\.\/hardware\/$HARDWARE_NAME\/schematic\/images/.\/images\/$HARDWARE_NAME\/schematic\/images/g" $NEW_README_PATH
+        sed -i -e "s/\.\/hardware\/$HARDWARE_NAME\/gerbers\/images/.\/images\/$HARDWARE_NAME\/gerbers\/images/g" $NEW_README_PATH
+      fi
+    done
+  #+END_SRC
+* Firmware
+  #+BEGIN_SRC sh :exports results :results silent
+    for FIRMWARE_PATH in ../firmware/*; do
+      if [ -d $FIRMWARE_PATH ]; then
+        FIRMWARE_NAME=${FIRMWARE_PATH##*/};
+        README_PATH="$FIRMWARE_PATH/README.org";
+        NEW_README_PATH="../tmp-README-$FIRMWARE_NAME.org";
+        sed -e "s/\.\//.\/firmware\/$FIRMWARE_NAME\//g" $README_PATH > $NEW_README_PATH;
+      fi
+    done
+  #+END_SRC

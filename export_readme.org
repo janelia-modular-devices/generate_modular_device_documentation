@@ -1,6 +1,6 @@
 # -*- org-confirm-babel-evaluate: nil -*-
 #+TITLE: export_readme
-#+EXPORT_FILE_NAME: ../README
+#+EXPORT_FILE_NAME: ../tmp-README
 #+OPTIONS: title:nil author:nil email:nil toc:t |:t ^:nil
 #+INCLUDE: "../project.org::*Header"
 
@@ -15,7 +15,7 @@
   (add-to-list 'org-export-filter-final-output-functions
                'my-result-keyword-filter)
   (defun my-export-filename-filter (output backend info)
-    (replace-regexp-in-string "^#[+]EXPORT_FILE_NAME:.*\n" "" output))
+    (replace-regexp-in-string "^#[+]EXPORT_FILE_NAME:.*\n" "#+EXPORT_FILE_NAME: README\n" output))
   (add-to-list 'org-export-filter-final-output-functions
                'my-export-filename-filter)
 #+END_SRC
@@ -30,7 +30,8 @@
        #+BEGIN_SRC sh :exports none
          sudo apt-get install texlive-latex-extra
        #+END_SRC
-  2. Export this file to desired format.
+  2. Export this file to org format, this will create the file ../tmp-README.org
+  3. Open ../tmp-README.org and export that to the desired format.
 
 * Repository Information
 
@@ -51,18 +52,10 @@
     done
   #+END_SRC
 
-* Firmware
+  #+INCLUDE: "../project.org::*Usage Instructions" :minlevel 1
 
-  #+BEGIN_SRC sh :exports results :results raw
-    for FIRMWARE_PATH in ../firmware/*; do
-      if [ -d $FIRMWARE_PATH ]; then
-        FIRMWARE_NAME=${FIRMWARE_PATH##*/};
-        echo "** $FIRMWARE_NAME\n";
-        README_PATH="./README-$FIRMWARE_NAME.org";
-        echo "#+INCLUDE: \"$README_PATH\"\n";
-      fi
-    done
-  #+END_SRC
+  #+INCLUDE: "../project.org::*Build Instructions" :minlevel 1
+
 * Hardware
 
   #+BEGIN_SRC sh :exports results :results raw
@@ -70,7 +63,19 @@
       if [ -d $HARDWARE_PATH ]; then
         HARDWARE_NAME=${HARDWARE_PATH##*/};
         echo "** $HARDWARE_NAME\n";
-        README_PATH="./README-$HARDWARE_NAME.org";
+        README_PATH="./tmp-README-$HARDWARE_NAME.org";
+        echo "#+INCLUDE: \"$README_PATH\"\n";
+      fi
+    done
+  #+END_SRC
+* Firmware
+
+  #+BEGIN_SRC sh :exports results :results raw
+    for FIRMWARE_PATH in ../firmware/*; do
+      if [ -d $FIRMWARE_PATH ]; then
+        FIRMWARE_NAME=${FIRMWARE_PATH##*/};
+        echo "** $FIRMWARE_NAME\n";
+        README_PATH="./tmp-README-$FIRMWARE_NAME.org";
         echo "#+INCLUDE: \"$README_PATH\"\n";
       fi
     done
