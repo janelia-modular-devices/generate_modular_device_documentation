@@ -1,6 +1,7 @@
 * Header                                                           :noexport:
 
   #+MACRO: project_name
+  #+MACRO: version 1.0
   #+MACRO: license BSD, Open-Source Hardware
   #+AUTHOR: Peter Polidoro
   #+EMAIL: peterpolidoro@gmail.com
