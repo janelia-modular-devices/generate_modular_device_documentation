@@ -26,6 +26,5 @@
 * Generate Supplementals
   Follow instrustions in generate_supplementals.org
 
-* Export BOM and README
-  1. Follow instructions in export_bom.org
-  2. Follow instructions in export_readme.org
+* Export README
+  Follow instructions in export_readme.org
