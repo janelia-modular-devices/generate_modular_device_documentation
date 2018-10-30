@@ -49,7 +49,10 @@
   #+BEGIN_SRC sh :exports results :results raw
     for FILEPATH in ../images/*.png; do
       FILENAME=${FILEPATH##*/}
-      echo "[[file:./images/$FILENAME]]\n"
+      if [ "$FILENAME" != "*.png" ]
+      then
+        echo "[[file:./images/$FILENAME]]\n"
+      fi
     done
   #+END_SRC
 
